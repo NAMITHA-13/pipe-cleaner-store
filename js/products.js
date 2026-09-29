@@ -19,6 +19,12 @@ const STORE_CONFIG = {
   shippingFee: 60,                      // flat shipping fee
   freeShippingThreshold: 999,           // free shipping at or above this subtotal
   maxQuantityPerItem: 20,
+
+  // Shown on invoice PDFs. Replace with your real details.
+  businessEmail: "mnamithapawar@gmail.com",
+  businessPhone: "+919482858635",
+  businessAddress: "Bengaluru, Karnataka",
+  gstin: "",                            // add your GSTIN here if you register for GST
 };
 
 const CATEGORIES = ["Flowers", "Bouquets", "Gifts", "Keychains"];

@@ -79,6 +79,140 @@ async function submitOrder(order) {
   return order;
 }
 
+/* INVOICE PDF -------------------------------------------------------------
+   Built in the browser with jsPDF (loaded from a CDN on success.html).
+   FUTURE: once the backend creates invoices, order.invoice_url is used
+   instead and this function is only a fallback.
+   Note: jsPDF's built-in fonts have no ₹ glyph, so amounts use "Rs.".
+   ------------------------------------------------------------------------ */
+
+function pdfPrice(amount) {
+  return "Rs. " + Number(amount).toLocaleString("en-IN");
+}
+
+function generateInvoicePDF(order) {
+  const jsPDF = window.jspdf && window.jspdf.jsPDF;
+  if (!jsPDF) {
+    showToast("The invoice tool didn't load. Check your connection and refresh the page.");
+    return;
+  }
+
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const M = 48;                              // page margin
+  const INK = [42, 33, 64];
+  const MUTED = [107, 99, 128];
+  const ACCENT = [214, 58, 116];
+  const placed = new Date(order.created_at);
+
+  // Header: business on the left, invoice details on the right
+  doc.setFont("helvetica", "bold").setFontSize(20).setTextColor(...INK);
+  doc.text(STORE_CONFIG.brandName, M, 64);
+
+  doc.setFont("helvetica", "normal").setFontSize(9.5).setTextColor(...MUTED);
+  const bizLines = [
+    ...String(STORE_CONFIG.businessAddress || "").split("\n"),
+    STORE_CONFIG.businessEmail,
+    STORE_CONFIG.businessPhone,
+    STORE_CONFIG.gstin ? `GSTIN: ${STORE_CONFIG.gstin}` : "",
+  ].filter(Boolean);
+  doc.text(bizLines, M, 82);
+
+  doc.setFont("helvetica", "bold").setFontSize(22).setTextColor(...ACCENT);
+  doc.text("Invoice", pageW - M, 64, { align: "right" });
+  doc.setFont("helvetica", "normal").setFontSize(9.5).setTextColor(...MUTED);
+  doc.text(
+    [
+      `Order ID: ${order.order_id}`,
+      `Date: ${placed.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}`,
+      `Payment: ${order.status === "paid" ? "Paid" : "Pending"}`,
+    ],
+    pageW - M,
+    82,
+    { align: "right" }
+  );
+
+  // Bill to
+  let y = Math.max(82 + bizLines.length * 12, 140) + 20;
+  doc.setDrawColor(225, 217, 238).line(M, y, pageW - M, y);
+  y += 24;
+  doc.setFont("helvetica", "bold").setFontSize(11).setTextColor(...INK);
+  doc.text("Bill to", M, y);
+  doc.setFont("helvetica", "normal").setFontSize(10).setTextColor(...INK);
+  const address = doc.splitTextToSize(order.delivery_address, 260);
+  const billTo = [order.customer_name, ...address, order.phone, order.email];
+  doc.text(billTo, M, y + 16);
+  y += 16 + billTo.length * 12 + 16;
+
+  // Items table
+  doc.autoTable({
+    startY: y,
+    margin: { left: M, right: M },
+    head: [["Item", "Colour", "Qty", "Unit price", "Amount"]],
+    body: order.items.map((i) => [
+      i.product_name,
+      i.colour,
+      String(i.quantity),
+      pdfPrice(i.price),
+      pdfPrice(i.price * i.quantity),
+    ]),
+    theme: "striped",
+    styles: { font: "helvetica", fontSize: 10, cellPadding: 7, textColor: INK },
+    headStyles: { fillColor: INK, textColor: [255, 255, 255], fontStyle: "bold" },
+    alternateRowStyles: { fillColor: [246, 243, 252] },
+    columnStyles: {
+      2: { halign: "center", cellWidth: 44 },
+      3: { halign: "right", cellWidth: 84 },
+      4: { halign: "right", cellWidth: 90 },
+    },
+    // Align the headings with the columns below them
+    didParseCell: (data) => {
+      if (data.section === "head" && data.column.index >= 2) {
+        data.cell.styles.halign = data.column.index === 2 ? "center" : "right";
+      }
+    },
+  });
+
+  // Totals, right-aligned under the table
+  y = doc.lastAutoTable.finalY + 22;
+  const labelX = pageW - M - 150;
+  const rows = [
+    ["Subtotal", pdfPrice(order.subtotal)],
+    ["Shipping", order.shipping === 0 ? "Free" : pdfPrice(order.shipping)],
+  ];
+  doc.setFontSize(10).setTextColor(...INK);
+  rows.forEach(([label, value]) => {
+    doc.setFont("helvetica", "normal").text(label, labelX, y);
+    doc.text(value, pageW - M, y, { align: "right" });
+    y += 16;
+  });
+  doc.setDrawColor(225, 217, 238).line(labelX, y - 6, pageW - M, y - 6);
+  y += 10;
+  doc.setFont("helvetica", "bold").setFontSize(12);
+  doc.text("Total", labelX, y);
+  doc.text(pdfPrice(order.total), pageW - M, y, { align: "right" });
+
+  // Order notes
+  if (order.notes) {
+    y += 36;
+    doc.setFont("helvetica", "bold").setFontSize(10).text("Order notes", M, y);
+    doc.setFont("helvetica", "normal").setTextColor(...MUTED);
+    doc.text(doc.splitTextToSize(order.notes, pageW - M * 2), M, y + 14);
+  }
+
+  // Footer
+  doc.setFont("helvetica", "normal").setFontSize(9).setTextColor(...MUTED);
+  doc.text(
+    `Thank you for supporting handmade. Questions? Write to ${STORE_CONFIG.businessEmail}`,
+    pageW / 2,
+    pageH - 40,
+    { align: "center" }
+  );
+
+  doc.save(`Invoice-${order.order_id}.pdf`);
+}
+
 /* CHECKOUT PAGE ---------------------------------------------------------- */
 
 const VALIDATORS = {
@@ -249,15 +383,15 @@ function initSuccessPage() {
         <button type="button" class="btn btn--outline" id="download-invoice">Download invoice PDF</button>
         <a class="btn btn--primary" href="products.html">Continue shopping</a>
       </div>
-      <p class="muted small">Invoice downloads will be available once online ordering is fully set up.</p>
+      <p class="muted small">Download your invoice now. It stays available on this device until you place another order.</p>
     </div>`;
 
-  // FUTURE: when order.invoice_url exists, open it instead of showing a message.
+  // Uses the server's invoice when the backend provides one, otherwise builds it here.
   document.getElementById("download-invoice").addEventListener("click", () => {
     if (order.invoice_url) {
       window.open(order.invoice_url, "_blank", "noopener");
     } else {
-      showToast("Invoice PDFs aren't available yet. Keep your order ID for reference.");
+      generateInvoicePDF(order);
     }
   });
 
