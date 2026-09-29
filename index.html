@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Handmade pipe-cleaner flowers and gifts</title>
+  <meta name="description" content="Handmade pipe-cleaner flowers, bouquets, gifts and keychains.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="brand" aria-label="Home">
+        <!-- Logo placeholder: replace with <img src="images/logo.svg" alt="" width="36" height="36"> -->
+        <span class="brand__logo" aria-hidden="true">logo</span>
+        <span class="brand__name" data-brand>Brand Name</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count hidden>0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="container hero">
+      <div>
+        <h1 class="hero__title">Flowers that never wilt, twisted by hand.</h1>
+        <p class="hero__text">We make small flowers, bouquets, gifts and keychains from soft pipe cleaners. Every piece is shaped by hand, one stem at a time.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="products.html">Shop now</a>
+          <a class="btn btn--ghost" href="#featured">See featured pieces</a>
+        </div>
+      </div>
+      <!-- Hero image placeholder: replace this block with <img src="images/hero.jpg" alt="..."> -->
+      <div class="hero__art">
+          <svg viewBox="0 0 320 320" role="img" aria-label="Illustration of a flower made from pipe cleaners">
+            <!-- Stem + leaf -->
+            <path class="strand" d="M160 170 C 150 215, 176 250, 160 300" fill="none" stroke="#5E9A55" stroke-width="12" stroke-linecap="round"/>
+            <path class="strand" d="M163 252 C 190 226, 222 228, 236 240 C 214 258, 186 262, 163 252 Z" fill="none" stroke="#5E9A55" stroke-width="9" stroke-linejoin="round"/>
+            <!-- Petals: one continuous looping strand -->
+            <path class="strand" d="M160 120 C 110 40, 70 100, 160 120 C 90 150, 110 200, 160 120 C 170 200, 230 170, 160 120 C 250 110, 220 40, 160 120" fill="none" stroke="#D63A74" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Centre coil -->
+            <path class="strand" d="M160 120 m -14 0 a 14 14 0 1 1 28 0 a 10 10 0 1 1 -20 0 a 6 6 0 1 1 12 0" fill="none" stroke="#F5B82E" stroke-width="8" stroke-linecap="round"/>
+          </svg>
+        <span class="hero__art-note">Hero photo placeholder</span>
+      </div>
+    </section>
+
+    <section class="container">
+      <ul class="promise-list">
+        <li><h3>Made by hand</h3><p>Each piece is twisted and shaped by the two of us.</p></li>
+        <li><h3>Pick your colours</h3><p>Most designs come in several colours.</p></li>
+        <li><h3>Ready to gift</h3><p>Wrapped and packed so it arrives in shape.</p></li>
+      </ul>
+    </section>
+
+    <section class="container section" id="featured">
+      <div class="section-head">
+        <h2>Featured pieces</h2>
+        <a href="products.html">View all products</a>
+      </div>
+      <div class="product-grid" id="featured-grid"></div>
+    </section>
+
+    <section class="container section--tight">
+      <div class="section-head"><h2>Shop by category</h2></div>
+      <div class="category-links">
+        <a class="category-link" href="products.html?category=Flowers" style="--accent:#D63A74"><strong>Flowers</strong><span>Single stems and small sets</span></a>
+        <a class="category-link" href="products.html?category=Bouquets" style="--accent:#A98BE0"><strong>Bouquets</strong><span>Mixed bunches, wrapped</span></a>
+        <a class="category-link" href="products.html?category=Gifts" style="--accent:#2FA39A"><strong>Gifts</strong><span>Boxes with a note card</span></a>
+        <a class="category-link" href="products.html?category=Keychains" style="--accent:#F5B82E"><strong>Keychains</strong><span>Tiny, fuzzy, on a ring</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span data-year></span> <span data-brand>Brand Name</span>. Handmade with care.</p>
+      <p><a href="products.html">Shop</a> &nbsp; <a href="mailto:hello@example.com">hello@example.com</a></p>
+    </div>
+  </footer>
+
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>
