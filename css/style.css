@@ -140,6 +140,8 @@ a:hover { color: var(--color-pink-dark); }
 .brand__en { font-family: var(--font-brand); font-weight: 400; font-size: 1.5rem; }
 .brand__en::after { content: " 🌸"; }
 .brand__kn { font-family: var(--font-brand-kn); font-weight: 600; font-size: 0.85rem; color: var(--color-muted); }
+img.brand__logo { width: auto; height: 44px; border: 0; border-radius: 0; }
+.brand__en { display: none; }
 /* Logo placeholder: replace the <span class="brand__logo"> with an <img> later */
 .brand__logo {
   width: 36px;
@@ -638,7 +640,7 @@ a:hover { color: var(--color-pink-dark); }
 }
 
 @media (max-width: 520px) {
-  .brand__logo { display: none; }  /* name only on very small screens */
+  img.brand__logo { height: 36px; }  /* smaller logo on phones */
   .brand__en { font-size: 1.2rem; }
   .brand__kn { font-size: 0.75rem; }
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
