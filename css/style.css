@@ -138,6 +138,7 @@ a:hover { color: var(--color-pink-dark); }
 .brand:hover { color: var(--color-ink); }
 .brand__name { display: flex; flex-direction: column; line-height: 1.15; }
 .brand__en { font-family: var(--font-brand); font-weight: 400; font-size: 1.5rem; }
+.brand__en::after { content: " 🌸"; }
 .brand__kn { font-family: var(--font-brand-kn); font-weight: 600; font-size: 0.85rem; color: var(--color-muted); }
 /* Logo placeholder: replace the <span class="brand__logo"> with an <img> later */
 .brand__logo {
