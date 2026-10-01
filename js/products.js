@@ -12,7 +12,7 @@
 /* 1. STORE CONFIGURATION ------------------------------------------------- */
 
 const STORE_CONFIG = {
-  brandName: "Brand Name",              // TODO: your real brand name
+  brandName: "Hoovu Studio",
   tagline: "Handmade pipe-cleaner flowers and gifts",
   currency: "INR",
   locale: "en-IN",
