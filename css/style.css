@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Baloo+Tamma+2:wght@600;700&display=swap");
 /* ==========================================================================
    style.css
    Change the brand look by editing the tokens in :root first.
@@ -24,6 +25,8 @@
   /* Type */
   --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
   --font-body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-brand: "Pacifico", "Segoe Script", cursive;
+  --font-brand-kn: "Baloo Tamma 2", "Nirmala UI", sans-serif;
   --fs-sm: 0.875rem;
   --fs-base: 1rem;
   --fs-md: 1.125rem;
@@ -126,14 +129,16 @@ a:hover { color: var(--color-pink-dark); }
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  font-family: var(--font-display);
+  font-family: var(--font-brand);
   font-weight: 800;
   font-size: 1.25rem;
   color: var(--color-ink);
   text-decoration: none;
 }
 .brand:hover { color: var(--color-ink); }
-
+.brand__name { display: flex; flex-direction: column; line-height: 1.15; }
+.brand__en { font-family: var(--font-brand); font-weight: 400; font-size: 1.5rem; }
+.brand__kn { font-family: var(--font-brand-kn); font-weight: 600; font-size: 0.85rem; color: var(--color-muted); }
 /* Logo placeholder: replace the <span class="brand__logo"> with an <img> later */
 .brand__logo {
   width: 36px;
