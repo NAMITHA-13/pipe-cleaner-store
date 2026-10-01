@@ -655,3 +655,41 @@ img.brand__logo { width: auto; height: 56px; border: 0; border-radius: 0; }
   }
   .section-head { flex-direction: column; align-items: flex-start; }
 }
+
+/* 13. LOGIN + ACCOUNT ---------------------------------------------------- */
+.account-link { display: inline-flex; align-items: center; }
+.auth-card { max-width: 440px; margin-inline: auto; }
+.auth-switch { text-align: center; margin: 1.25rem 0 0; font-size: var(--fs-sm); color: var(--color-muted); }
+.auth-message { margin: 0 0 1rem; padding: 0.75rem 1rem; border-radius: var(--radius-input); background: var(--color-pink-soft); font-size: var(--fs-sm); }
+.auth-message[hidden] { display: none; }
+.account-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.account-head .page-title { margin-bottom: 0; }
+.account-head p { margin: 0; }
+.orders-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 1.25rem; }
+.order-card__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 0.5rem; }
+.order-card__head p { margin: 0; }
+.order-card__id { font-weight: 800; letter-spacing: 0.04em; }
+.status-pill { padding: 0.2rem 0.75rem; border-radius: var(--radius-pill); font-size: 0.75rem; font-weight: 700; white-space: nowrap; background: var(--color-surface-soft); color: var(--color-ink); }
+.status-pill--confirmed, .status-pill--shipped { background: #DCEFF0; color: #1E6F69; }
+.status-pill--delivered { background: #DCEFE3; color: var(--color-success); }
+.status-pill--cancelled { background: #F7DEDC; color: var(--color-error); }
+
+.password-wrap { position: relative; }
+.password-wrap input { padding-right: 3rem; }
+.password-wrap input::-ms-reveal { display: none; }  /* hide Edge's own eye button */
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--color-muted);
+  cursor: pointer;
+}
+.password-toggle:hover { color: var(--color-ink); background: var(--color-surface-soft); }

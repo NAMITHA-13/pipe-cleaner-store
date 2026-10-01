@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log in | Hoovu Studio</title>
+  <meta name="description" content="Handmade pipe-cleaner flowers, bouquets, gifts and keychains.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="login">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="brand" aria-label="Home">
+        <img class="brand__logo" src="images/logo.png" alt="Hoovu Studio" width="102" height="44">
+        <span class="brand__name"><span class="brand__en" data-brand>Hoovu Studio</span><span class="brand__kn" lang="kn">ಹೂವು ಸ್ಟುಡಿಯೋ</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count hidden>0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section--tight">
+    <div class="form-panel auth-card">
+      <h1 class="page-title" id="auth-title">Log in</h1>
+      <p class="page-intro" id="auth-intro">Log in to see your orders.</p>
+
+      <form id="auth-form" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error">
+          <p class="field-error" id="email-error" role="alert"></p>
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="password-wrap">
+            <input id="password" name="password" type="password" autocomplete="current-password" required aria-describedby="password-error">
+            <button type="button" class="password-toggle" id="password-toggle" aria-label="Show password" aria-pressed="false">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <p class="field-error" id="password-error" role="alert"></p>
+        </div>
+
+        <p class="auth-message" id="auth-message" role="alert" hidden></p>
+        <button id="auth-submit" class="btn btn--primary btn--block" type="submit">Log in</button>
+      </form>
+
+      <p class="auth-switch">
+        <span id="switch-text">New here?</span>
+        <button type="button" class="link-button" id="switch-mode">Create an account</button>
+      </p>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span data-year></span> <span data-brand>Hoovu Studio</span>. Handmade with care.</p>
+      <p><a href="products.html">Shop</a> &nbsp; <a href="mailto:hello@example.com">hello@example.com</a></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>

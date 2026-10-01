@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your account | Hoovu Studio</title>
+  <meta name="description" content="Handmade pipe-cleaner flowers, bouquets, gifts and keychains.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="account">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="index.html" class="brand" aria-label="Home">
+        <img class="brand__logo" src="images/logo.png" alt="Hoovu Studio" width="102" height="44">
+        <span class="brand__name"><span class="brand__en" data-brand>Hoovu Studio</span><span class="brand__kn" lang="kn">ಹೂವು ಸ್ಟುಡಿಯೋ</span></span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="products.html">Shop</a>
+        <a href="cart.html" class="cart-link">Cart <span class="cart-count" data-cart-count hidden>0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section--tight">
+    <div class="account-head">
+      <div>
+        <h1 class="page-title">Your account</h1>
+        <p class="muted" id="account-email"></p>
+      </div>
+      <button id="logout" class="btn btn--outline btn--small" type="button">Log out</button>
+    </div>
+
+    <h2>Your orders</h2>
+    <div id="orders-root"><p class="muted">Loading your orders…</p></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>&copy; <span data-year></span> <span data-brand>Hoovu Studio</span>. Handmade with care.</p>
+      <p><a href="products.html">Shop</a> &nbsp; <a href="mailto:hello@example.com">hello@example.com</a></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/account.js"></script>
+</body>
+</html>

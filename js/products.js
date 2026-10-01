@@ -240,6 +240,20 @@ function applyBrand() {
     el.textContent = new Date().getFullYear();
   });
 }
+/** Adds a person icon linking to the account page, next to Cart, on every page. */
+function addAccountLink() {
+  const cartLink = document.querySelector(".site-nav .cart-link");
+  if (!cartLink || document.querySelector(".account-link")) return;
+  const link = document.createElement("a");
+  link.href = "account.html";
+  link.className = "account-link";
+  link.setAttribute("aria-label", "Your account");
+  link.innerHTML =
+    '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>';
+  const page = document.body.dataset.page;
+  if (page === "account" || page === "login") link.setAttribute("aria-current", "page");
+  cartLink.before(link);
+}
 
 /* 4. RENDERING ----------------------------------------------------------- */
 
@@ -405,6 +419,7 @@ function renderProductDetail() {
 
 document.addEventListener("DOMContentLoaded", () => {
   applyBrand();
+  addAccountLink();
   const page = document.body.dataset.page;
   if (page === "home") renderFeatured();
   if (page === "products") renderProductsPage();
