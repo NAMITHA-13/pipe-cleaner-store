@@ -638,7 +638,9 @@ a:hover { color: var(--color-pink-dark); }
 }
 
 @media (max-width: 520px) {
-  .brand__name { display: none; }  /* logo only on very small screens */
+  .brand__logo { display: none; }  /* name only on very small screens */
+  .brand__en { font-size: 1.2rem; }
+  .brand__kn { font-size: 0.75rem; }
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
   .product-card__name { font-size: var(--fs-base); }
   .product-card .btn { width: 100%; }
