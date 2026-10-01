@@ -72,11 +72,20 @@ function orderItemsHTML(items) {
  * The server must re-check prices and totals; never trust the browser's numbers.
  */
 async function submitOrder(order) {
-  if (API_BASE_URL) {
-    throw new Error("Backend not implemented yet.");
+  if (!db) {
+    const err = new Error("Supabase didn't load");
+    err.userMessage = "We couldn't connect. Check your internet and refresh the page.";
+    throw err;
   }
-  localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(order));
-  return order;
+  // The server recalculates prices and totals and creates the real order ID
+  const { data, error } = await db.rpc("place_order", { payload: order });
+  if (error) {
+    const err = new Error(error.message);
+    if (error.code === "P0001") err.userMessage = error.message; // our own messages, e.g. "Choose a valid colour"
+    throw err;
+  }
+  localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(data));
+  return data;
 }
 
 /* INVOICE PDF -------------------------------------------------------------
@@ -311,7 +320,7 @@ function initCheckoutPage() {
       window.location.href = `success.html?order=${encodeURIComponent(saved.order_id)}`;
     } catch (err) {
       console.error(err);
-      showToast("Your order wasn't placed. Check your connection and try again.");
+      showToast(err.userMessage || "Your order wasn't placed. Check your connection and try again.");
       submitBtn.disabled = false;
       submitBtn.textContent = "Place order";
     }
